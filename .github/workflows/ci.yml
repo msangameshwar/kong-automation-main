@@ -27,7 +27,7 @@ jobs:
       run: sleep 10  # Or use a health check loop
 
     - name: Run API tests
-      run: newman run postman/mock-service-test.postman_collection.json
+      run: newman run postman/fact-service-test.postman_collection.json
 
     - name: Shut down Docker
       run: docker compose -f kong/docker-compose.yml down
