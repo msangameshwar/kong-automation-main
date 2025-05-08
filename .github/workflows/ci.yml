@@ -20,8 +20,10 @@ jobs:
     - name: Install Newman
       run: npm install -g newman
 
-    - name: Start kong deck
+    - name: Install kong deck
       uses: kong/setup-deck@v1
+
+    - name: Check kong deck connection
       run: deck gateway ping --kong-addr https://e472-103-97-164-230.ngrok-free.app
 
     - name: Start deck sync
