@@ -12,5 +12,5 @@ plugins:
   - name: rate-limiting
     service: mock-service
     config:
-      minute: 5
+      minute: 3
       policy: local
