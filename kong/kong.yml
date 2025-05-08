@@ -1,16 +1,16 @@
 _format_version: "3.0"
 services:
-  - name: mock-service
-    url: http://mockbin.org
+  - name: cat-service
+    url: https://catfact.ninja/fact
     routes:
-      - name: mock-route
+      - name: cat-route
         paths:
-          - /mock
+          - /fact
         methods:
           - GET
 plugins:
   - name: rate-limiting
-    service: mock-service
+    service: cat-service
     config:
       minute: 3
       policy: local

@@ -1,19 +1,19 @@
 {
     "info": {
-      "name": "Mock Service Test",
+      "name": "Fact Service Test",
       "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
       {
-        "name": "GET /mock",
+        "name": "GET /fact",
         "request": {
           "method": "GET",
           "url": {
-            "raw": "http://localhost:8000/mock",
+            "raw": "http://localhost:8000/fact",
             "protocol": "http",
             "host": ["localhost"],
             "port": "8000",
-            "path": ["mock"]
+            "path": ["fact"]
           }
         },
         "response": [],

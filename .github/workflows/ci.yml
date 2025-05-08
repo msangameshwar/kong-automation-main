@@ -30,4 +30,4 @@ jobs:
       run: newman run postman/mock-service-test.postman_collection.json
 
     - name: Shut down Docker
-      run: docker-compose -f kong/docker-compose.yml down
+      run: docker compose -f kong/docker-compose.yml down
