@@ -1,0 +1,33 @@
+name: API CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Newman
+      run: npm install -g newman
+
+    - name: Start Kong (Docker Compose)
+      run: docker-compose -f kong/docker-compose.yml up -d
+
+    - name: Wait for Kong to be ready
+      run: sleep 10  # Or use a health check loop
+
+    - name: Run API tests
+      run: newman run postman/mock-service-test.postman_collection.json
+
+    - name: Shut down Docker
+      run: docker-compose -f kong/docker-compose.yml down
