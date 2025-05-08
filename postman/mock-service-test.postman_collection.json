@@ -1,0 +1,36 @@
+{
+    "info": {
+      "name": "Mock Service Test",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "GET /mock",
+        "request": {
+          "method": "GET",
+          "url": {
+            "raw": "http://localhost:8000/mock",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["mock"]
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test(\"Status code is 200\", function () {",
+                "    pm.response.to.have.status(200);",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  
