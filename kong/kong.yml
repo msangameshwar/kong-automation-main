@@ -12,5 +12,5 @@ plugins:
   - name: rate-limiting
     service: cat-service
     config:
-      minute: 3
+      minute: 5
       policy: local
