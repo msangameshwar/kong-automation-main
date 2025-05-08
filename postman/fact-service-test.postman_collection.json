@@ -9,7 +9,7 @@
         "request": {
           "method": "GET",
           "url": {
-            "raw": "http://localhost:8000/fact",
+            "raw": "https://great-memes-allow.loca.lt/fact",
             "protocol": "http",
             "host": ["localhost"],
             "port": "8000",

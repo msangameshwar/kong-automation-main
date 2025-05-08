@@ -24,13 +24,12 @@ jobs:
       uses: kong/setup-deck@v1
 
     - name: Check kong deck connection
-      run: deck gateway ping --kong-addr https://e472-103-97-164-230.ngrok-free.app
+      run: deck gateway ping --kong-addr https://puny-corners-judge.loca.lt
 
     - name: Start deck sync
-      run: deck gateway sync --kong-addr https://e472-103-97-164-230.ngrok-free.app kong/kong.yml
+      run: deck gateway sync --kong-addr https://puny-corners-judge.loca.lt kong/kong.yml
 
     - name: Run API tests
       run: newman run postman/fact-service-test.postman_collection.json
 
-    - name: Shut down Docker
-      run: docker compose -f kong/docker-compose.yml down
+
