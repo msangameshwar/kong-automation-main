@@ -27,7 +27,7 @@ jobs:
       run: deck gateway ping --kong-addr https://e472-103-97-164-230.ngrok-free.app
 
     - name: Start deck sync
-      run: deck gateway sync --kong-addr https://e472-103-97-164-230.ngrok-free.app kong.yml
+      run: deck gateway sync --kong-addr https://e472-103-97-164-230.ngrok-free.app kong/kong.yml
 
     - name: Run API tests
       run: newman run postman/fact-service-test.postman_collection.json
