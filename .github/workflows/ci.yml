@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      KONG_ADMIN_URL: https://puny-corners-judge.loca.lt
+      KONG_ADMIN_URL: https://puny-corners-judge.loca.l
 
     steps:
       - name: Checkout code
