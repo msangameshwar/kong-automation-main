@@ -8,28 +8,35 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      KONG_ADMIN_URL: https://puny-corners-judge.loca.lt
 
     steps:
-    - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-    - name: Install Newman
-      run: npm install -g newman
+      - name: Install Newman
+        run: npm install -g newman
 
-    - name: Install kong deck
-      uses: kong/setup-deck@v1
+      - name: Install Kong Deck
+        uses: kong/setup-deck@v1
 
-    - name: Check kong deck connection
-      run: deck gateway ping --kong-addr https://puny-corners-judge.loca.lt
+      - name: Check Kong Deck Connection
+        run: deck gateway ping --kong-addr $KONG_ADMIN_URL
 
-    - name: Start deck sync
-      run: deck gateway sync --kong-addr https://puny-corners-judge.loca.lt kong/kong.yml
+      - name: Check Difference In Configuration
+        run: deck gateway diff --kong-addr $KONG_ADMIN_URL
 
-    - name: Run API tests
-      run: newman run postman/fact-service-test.postman_collection.json
+      - name: Validate The Configuration
+        run: deck gateway validate --kong-addr $KONG_ADMIN_URL
 
+      - name: Sync Config to Kong
+        run: deck gateway sync --kong-addr $KONG_ADMIN_URL kong/kong.yml
 
+      - name: Run API tests
+        run: newman run postman/fact-service-test.postman_collection.json
