@@ -215,7 +215,7 @@ plugins:
       redis_server_name: null
       redis_ssl: false
       redis_ssl_verify: false
-      redis_timeout: 2000
+      redis_timeout: 200
       redis_username: null
       second: null
       sync_rate: -1
