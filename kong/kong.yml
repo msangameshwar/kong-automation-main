@@ -1,16 +1,693 @@
-_format_version: "3.0"
+_format_version: '3.0'
+consumers:
+  - jwt_secrets:
+      - algorithm: HS256
+        key: jwt-key
+        secret: jwt-secret
+    username: jwt-user
+  - acls:
+      - group: users
+    keyauth_credentials:
+      - key: normal-key
+    username: normal-user
+  - oauth2_credentials:
+      - client_id: kip6j2L1rI3k6XjljPuspx0ovyYZQdNl
+        client_secret: DrKqqpogii7M1M4hA1X6c0Q3sLM7BkaH
+        client_type: confidential
+        hash_secret: false
+        name: test-oauth-app
+        redirect_uris:
+          - http://localhost:3000/callback
+    username: oauth-user
+  - acls:
+      - group: admins
+    basicauth_credentials:
+      - password: 5fd77fb6b0d53e04305fd2dbdadcdd09eef44dd3
+        username: admin
+    keyauth_credentials:
+      - key: my-secret-key
+    username: test-user
+plugins:
+  - config:
+      allow:
+        - admins
+      always_use_authenticated_groups: false
+      deny: []
+      hide_groups_header: false
+      include_consumer_groups: false
+    enabled: false
+    name: acl
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    route: get-routes
+    service: gamma-service
+  - config:
+      anonymous: null
+      hide_credentials: false
+      realm: service
+    enabled: false
+    name: basic-auth
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      - ws
+      - wss
+    route: get-routes
+    service: gamma-service
+  - config:
+      allow_origin_absent: true
+      credentials: false
+      exposed_headers: null
+      headers: null
+      max_age: null
+      methods:
+        - GET
+        - HEAD
+        - PUT
+        - PATCH
+        - POST
+        - DELETE
+        - OPTIONS
+        - TRACE
+        - CONNECT
+      origins: null
+      preflight_continue: false
+      private_network: false
+    enabled: false
+    name: cors
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    route: get-routes
+    service: gamma-service
+  - config:
+      anonymous: null
+      claims_to_verify: null
+      cookie_names: []
+      header_names:
+        - authorization
+      key_claim_name: iss
+      maximum_expiration: 0
+      realm: null
+      run_on_preflight: true
+      secret_is_base64: false
+      uri_param_names:
+        - jwt
+    enabled: true
+    name: jwt
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    route: get-routes
+    service: gamma-service
+  - config:
+      anonymous: null
+      hide_credentials: false
+      identity_realms:
+        - id: null
+          region: null
+          scope: cp
+      key_in_body: false
+      key_in_header: true
+      key_in_query: true
+      key_names:
+        - apikey
+      realm: null
+      run_on_preflight: true
+    enabled: false
+    name: key-auth
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      - ws
+      - wss
+    route: get-routes
+    service: gamma-service
+  - config:
+      accept_http_if_already_terminated: true
+      anonymous: null
+      auth_header_name: authorization
+      enable_authorization_code: false
+      enable_client_credentials: true
+      enable_implicit_grant: false
+      enable_password_grant: false
+      global_credentials: false
+      hide_credentials: false
+      mandatory_scope: false
+      persistent_refresh_token: false
+      pkce: lax
+      provision_key: I4vnAIiPc27KnPGnJdAHEqEV5RFI1LML
+      realm: null
+      refresh_token_ttl: 1209600
+      reuse_refresh_token: false
+      scopes: null
+      token_expiration: 7200
+    enabled: false
+    name: oauth2
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      - ws
+      - wss
+    route: get-routes
+    service: gamma-service
+  - config:
+      access:
+        - kong.service.request.set_header("x-pre-function", "enabled")
+      body_filter: []
+      certificate: []
+      header_filter: []
+      log: []
+      rewrite: []
+      ws_client_frame: []
+      ws_close: []
+      ws_handshake: []
+      ws_upstream_frame: []
+    enabled: false
+    name: pre-function
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    route: get-routes
+    service: gamma-service
+  - config:
+      day: null
+      error_code: 429
+      error_message: API rate limit exceeded
+      fault_tolerant: true
+      header_name: null
+      hide_client_headers: false
+      hour: null
+      limit_by: consumer
+      minute: 2
+      month: null
+      path: null
+      policy: local
+      redis:
+        database: 0
+        host: null
+        password: null
+        port: 6379
+        server_name: null
+        ssl: false
+        ssl_verify: false
+        timeout: 2000
+        username: null
+      redis_database: 0
+      redis_host: null
+      redis_password: null
+      redis_port: 6379
+      redis_server_name: null
+      redis_ssl: false
+      redis_ssl_verify: false
+      redis_timeout: 2000
+      redis_username: null
+      second: null
+      sync_rate: -1
+      year: null
+    enabled: true
+    name: rate-limiting
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    route: post
+    service: simple-node-api-service
+  - config:
+      add:
+        body: []
+        headers: []
+        querystring: []
+      append:
+        body: []
+        headers: []
+        querystring: []
+      http_method: null
+      remove:
+        body: []
+        headers: []
+        querystring: []
+      rename:
+        body: []
+        headers: []
+        querystring: []
+      replace:
+        body: []
+        headers: []
+        querystring: []
+        uri: /users
+    enabled: true
+    name: request-transformer
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    route: get-routes
+    service: gamma-service
+  - config:
+      add:
+        body: []
+        headers: []
+        querystring: []
+      append:
+        body: []
+        headers: []
+        querystring: []
+      http_method: null
+      remove:
+        body: []
+        headers: []
+        querystring: []
+      rename:
+        body: []
+        headers: []
+        querystring: []
+      replace:
+        body: []
+        headers: []
+        querystring: []
+        uri: /users
+    enabled: true
+    name: request-transformer
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    route: get-third-routes
+    service: third-node-service
+  - config:
+      add:
+        body: []
+        headers: []
+        querystring: []
+      append:
+        body: []
+        headers: []
+        querystring: []
+      http_method: null
+      remove:
+        body: []
+        headers: []
+        querystring: []
+      rename:
+        body: []
+        headers: []
+        querystring: []
+      replace:
+        body: []
+        headers: []
+        querystring: []
+        uri: /users
+    enabled: true
+    name: request-transformer
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    route: post-routes
+    service: gamma-service
+  - config:
+      add:
+        body: []
+        headers: []
+        querystring: []
+      append:
+        body: []
+        headers: []
+        querystring: []
+      http_method: null
+      remove:
+        body: []
+        headers: []
+        querystring: []
+      rename:
+        body: []
+        headers: []
+        querystring: []
+      replace:
+        body: []
+        headers: []
+        querystring: []
+        uri: /users
+    enabled: true
+    name: request-transformer
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    route: post
+    service: simple-node-api-service
+  - config:
+      add:
+        headers:
+          - 'x-powered-by: kong'
+        json: []
+        json_types: []
+      append:
+        headers: []
+        json: []
+        json_types: []
+      remove:
+        headers: []
+        json: []
+      rename:
+        headers: []
+        json: []
+      replace:
+        headers: []
+        json: []
+        json_types: []
+    enabled: false
+    name: response-transformer
+    protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    route: get-routes
+    service: gamma-service
 services:
-  - name: cat-service
-    url: https://catfact.ninja/fact
+  - connect_timeout: 60000
+    enabled: true
+    host: host.docker.internal
+    name: gamma-service
+    plugins:
+      - config:
+          access:
+            - kong.service.request.set_header("x-post-function", "enabled")
+          body_filter: []
+          certificate: []
+          header_filter: []
+          log: []
+          rewrite: []
+          ws_client_frame: []
+          ws_close: []
+          ws_handshake: []
+          ws_upstream_frame: []
+        enabled: false
+        name: post-function
+        protocols:
+          - grpc
+          - grpcs
+          - http
+          - https
+    port: 3000
+    protocol: http
+    read_timeout: 60000
+    retries: 5
     routes:
-      - name: cat-route
-        paths:
-          - /fact
+      - https_redirect_status_code: 426
         methods:
           - GET
-plugins:
-  - name: rate-limiting
-    service: cat-service
-    config:
-      minute: 5
-      policy: local
+          - POST
+        name: get-routes
+        path_handling: v0
+        paths:
+          - /v1/gamma/users
+        preserve_host: false
+        protocols:
+          - http
+          - https
+        regex_priority: 0
+        request_buffering: true
+        response_buffering: true
+        strip_path: false
+      - https_redirect_status_code: 426
+        methods:
+          - POST
+        name: post-routes
+        path_handling: v0
+        paths:
+          - /v1/gamma/create-users
+        preserve_host: false
+        protocols:
+          - http
+          - https
+        regex_priority: 0
+        request_buffering: true
+        response_buffering: true
+        strip_path: true
+    write_timeout: 60000
+  - connect_timeout: 60000
+    enabled: true
+    host: host.docker.internal
+    name: simple-node-api-service
+    port: 3000
+    protocol: http
+    read_timeout: 60000
+    retries: 5
+    routes:
+      - https_redirect_status_code: 426
+        methods:
+          - GET
+        name: get
+        path_handling: v0
+        paths:
+          - /v1/users
+        plugins:
+          - config:
+              add:
+                body: []
+                headers: []
+                querystring: []
+              append:
+                body: []
+                headers: []
+                querystring: []
+              http_method: null
+              remove:
+                body: []
+                headers: []
+                querystring: []
+              rename:
+                body: []
+                headers: []
+                querystring: []
+              replace:
+                body: []
+                headers: []
+                querystring: []
+                uri: /users
+            enabled: true
+            name: request-transformer
+            protocols:
+              - grpc
+              - grpcs
+              - http
+              - https
+        preserve_host: false
+        protocols:
+          - http
+          - https
+        regex_priority: 0
+        request_buffering: true
+        response_buffering: true
+        strip_path: false
+      - https_redirect_status_code: 426
+        methods:
+          - POST
+        name: post
+        path_handling: v0
+        paths:
+          - /v1/users
+        preserve_host: false
+        protocols:
+          - http
+          - https
+        regex_priority: 0
+        request_buffering: true
+        response_buffering: true
+        strip_path: false
+    write_timeout: 60000
+  - connect_timeout: 60000
+    enabled: true
+    host: host.docker.internal
+    name: third-node-service
+    port: 3000
+    protocol: http
+    read_timeout: 60000
+    retries: 5
+    routes:
+      - https_redirect_status_code: 426
+        methods:
+          - GET
+        name: get-third-routes
+        path_handling: v0
+        paths:
+          - /v1/users
+        preserve_host: false
+        protocols:
+          - http
+          - https
+        regex_priority: 0
+        request_buffering: true
+        response_buffering: true
+        strip_path: false
+      - https_redirect_status_code: 426
+        methods:
+          - POST
+        name: post-node-routes
+        path_handling: v0
+        paths:
+          - /v1/users
+        preserve_host: false
+        protocols:
+          - http
+          - https
+        regex_priority: 0
+        request_buffering: true
+        response_buffering: true
+        strip_path: false
+    write_timeout: 60000
+  - connect_timeout: 60000
+    enabled: true
+    host: host.docker.internal
+    name: users-service
+    port: 3000
+    protocol: http
+    read_timeout: 60000
+    retries: 5
+    routes:
+      - https_redirect_status_code: 426
+        methods:
+          - POST
+        name: create-new-user
+        path_handling: v0
+        paths:
+          - /api/users
+        preserve_host: false
+        protocols:
+          - http
+          - https
+        regex_priority: 0
+        request_buffering: true
+        response_buffering: true
+        strip_path: false
+      - https_redirect_status_code: 426
+        methods:
+          - GET
+        name: get-all-users-routes
+        path_handling: v0
+        paths:
+          - /api/v1/users
+        plugins:
+          - config:
+              add:
+                body: []
+                headers: []
+                querystring: []
+              append:
+                body: []
+                headers: []
+                querystring: []
+              http_method: null
+              remove:
+                body: []
+                headers: []
+                querystring: []
+              rename:
+                body: []
+                headers: []
+                querystring: []
+              replace:
+                body: []
+                headers: []
+                querystring: []
+                uri: /api/users
+            enabled: false
+            name: request-transformer
+            protocols:
+              - grpc
+              - grpcs
+              - http
+              - https
+        preserve_host: false
+        protocols:
+          - http
+          - https
+        regex_priority: 0
+        request_buffering: true
+        response_buffering: true
+        strip_path: false
+      - https_redirect_status_code: 426
+        methods:
+          - GET
+        name: get-user-by-id
+        path_handling: v0
+        paths:
+          - /api/v1/users/:id
+        plugins:
+          - config:
+              add:
+                body: []
+                headers: []
+                querystring: []
+              append:
+                body: []
+                headers: []
+                querystring: []
+              http_method: null
+              remove:
+                body: []
+                headers: []
+                querystring: []
+              rename:
+                body: []
+                headers: []
+                querystring: []
+              replace:
+                body: []
+                headers: []
+                querystring: []
+                uri: /api/users/:id
+            enabled: true
+            name: request-transformer
+            protocols:
+              - grpc
+              - grpcs
+              - http
+              - https
+        preserve_host: false
+        protocols:
+          - http
+          - https
+        regex_priority: 0
+        request_buffering: true
+        response_buffering: true
+        strip_path: true
+      - https_redirect_status_code: 426
+        methods:
+          - PUT
+        name: update-user
+        path_handling: v0
+        paths:
+          - /api/users
+        preserve_host: false
+        protocols:
+          - http
+          - https
+        regex_priority: 0
+        request_buffering: true
+        response_buffering: true
+        strip_path: false
+    write_timeout: 60000
