@@ -31,10 +31,10 @@ jobs:
       - name: Check Kong decK Connection
         run: deck gateway ping --kong-addr $KONG_ADMIN_URL
 
-      - name: Validate Kong Configuration File
+      - name: Validate Kong YAML File
         run: deck file validate kong/kong.yml
 
-      - name: Check Difference In Kong Configuration
+      - name: Check Difference In Configuration
         run: deck gateway diff kong/kong.yml --kong-addr $KONG_ADMIN_URL
 
       - name: Sync Config to Kong
