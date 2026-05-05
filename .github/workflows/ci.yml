@@ -6,7 +6,7 @@ on:
   pull_request:
 
 env:
-  KONG_ADMIN_URL: https://dark-views-spend.loca.lt
+  KONG_ADMIN_URL: https://51eb-2401-4900-8f57-5f80-39d8-d579-7673-4436.ngrok-free.app                                          
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
